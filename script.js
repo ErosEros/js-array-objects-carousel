@@ -13,8 +13,8 @@ dopo 5 secondi la slide avanza automaticamente
 const NUM_IMAGES = 5;
 const CHANGE_IMAGE_DELAY = 5;
 
-//const images = createImageArray(NUM_IMAGES);
-//console.log(images);
+// const images = createImageArray(NUM_IMAGES);
+// console.log(images);
 
 const images = [
     {
@@ -46,21 +46,22 @@ const images = [
     },
 ];
 
-console.log(images.url)
 
 
 let activeIndex = 0;
 buildCarousel(images, activeIndex);
 
 let idInterval = setInterval(moveCarouselForward, CHANGE_IMAGE_DELAY * 1000);
-let idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);
-
 
 const leftArrowButton = document.getElementById('left-arrow');
 const rightArrowButton = document.getElementById('right-arrow');
 
 leftArrowButton.addEventListener('click', moveCarouselPrevious);
+
+
 rightArrowButton.addEventListener('click', moveCarouselForward);
+
+
 
 
 
@@ -73,11 +74,11 @@ function moveCarouselForward(){
 }
 
 function moveCarouselPrevious(){
-     clearInterval(idInterval2)
+     clearInterval(idInterval)
     // se l'indice è in prima posizione si valorizza all'ultima posizione dell'array
     activeIndex = activeIndex > 0 ? activeIndex -1 : images.length -1 ;
     buildCarousel(images, activeIndex);
-    idInterval2 = setInterval(moveCarouselPrevious, CHANGE_IMAGE_DELAY * 1000);
+    idInterval = setInterval(moveCarouselForward, CHANGE_IMAGE_DELAY * 1000);
 }
 
 
@@ -86,14 +87,9 @@ function buildCarousel(images, activeIndex){
     const carouselThumbs = document.querySelector('.carousel-thumbs');
     let content = '';
     for(let i = 0; i < images.length; i++){
-
-        //MODIFICATION EXERCISE WITH ARRAY-OBJECT
         const elementObject = images[i];
         const imageClass = i === activeIndex ? 'carousel-img active' : 'carousel-img'
-        content += 
-        `<img class="${imageClass}" src="${elementObject.url}" 
-        alt="${elementObject}" /> `;
-        //END MODIFICATION
+        content += `<img class="${imageClass}" src="${elementObject.url}" alt="${elementObject.title}" />`;
     }
     // console.log({content});
     carouselImages.innerHTML = content;
@@ -110,10 +106,4 @@ function createImageArray(numImages){
     }
     return images;
 }
-*/
-
-
-/*
-Bonus:
-E se volessi un bottone per invertire la "direzione" del carosello nell'avanzamento automatico?
 */
